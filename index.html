@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duggarswad - Traditional Jammu Food Blog | Authentic Dogra Recipes</title>
+    <meta name="description" content="Discover authentic traditional recipes from Jammu and Kashmir. Share and explore Dogra cuisine, from Rajma to Kalaadi. Preserve culinary heritage with us.">
+    <meta name="keywords" content="Jammu food, Dogra cuisine, traditional recipes, Rajma, Kalaadi, Madhra, Jammu blog">
+    <meta name="author" content="Duggarswad">
+    <meta property="og:title" content="Duggarswad - Traditional Jammu Food Blog">
+    <meta property="og:description" content="Discover authentic traditional recipes from Jammu and Kashmir">
+    <meta property="og:image" content="assets/logo.jpeg">
+    <meta property="og:url" content="https://duggarswad.com">
+    <link rel="canonical" href="https://duggarswad.com">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="loading-logo">
+            <div class="loading-spinner"></div>
+            <p>Loading Traditional Flavours...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="logo-img">
+                <span class="logo-text">Duggarswad</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="post-blog.html" class="nav-link">Post Your Blog</a>
+                </li>
+                <li class="nav-item admin-link" style="display: none;">
+                    <a href="admin.html" class="nav-link admin-nav">Admin</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Taste the Tradition</span>
+                    <span class="title-line">of Duggar</span>
+                </h1>
+                <p class="hero-description">
+                    Welcome to Flavours of Jammu, where we bring back the lost and traditional foods of the Duggar land. 
+                    Share your family recipes and discover authentic Dogra cuisine.
+                </p>
+                <div class="hero-buttons">
+                    <a href="post-blog.html" class="cta-button primary">
+                        Share Your Recipe <i class="fas fa-plus"></i>
+                    </a>
+                    <button class="cta-button secondary" onclick="scrollToBlogs()">
+                        Explore Recipes <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/traditional-drink.jpeg" alt="Traditional Jammu Drink" class="floating-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-recipes">0</div>
+                    <div class="stat-label">Traditional Recipes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="total-contributors">0</div>
+                    <div class="stat-label">Contributors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="pending-approval">0</div>
+                    <div class="stat-label">Recipes Shared Today</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog-section" class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Traditional Recipes & Stories</h2>
+                <p class="section-subtitle">Discover authentic flavours passed down through generations</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="blog-controls">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search recipes...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-dropdown">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="main-course">Main Course</option>
+                        <option value="appetizers">Appetizers</option>
+                        <option value="desserts">Desserts</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="snacks">Snacks</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="blog-grid" id="blog-grid">
+                <!-- Blog posts will be dynamically loaded here -->
+            </div>
+            
+            <div class="no-results" id="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No recipes found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+
+            <div class="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">Load More Recipes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated with Traditional Recipes</h2>
+                <p>Get the latest traditional recipes and stories delivered to your inbox</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Duggarswad</span>
+                    </div>
+                    <p>Preserving the traditional flavours of Jammu, one recipe at a time.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="post-blog.html">Post Recipe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('main-course')">Main Course</a></li>
+                        <li><a href="#" onclick="filterByCategory('appetizers')">Appetizers</a></li>
+                        <li><a href="#" onclick="filterByCategory('desserts')">Desserts</a></li>
+                        <li><a href="#" onclick="filterByCategory('beverages')">Beverages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@duggarswad.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Jammu, J&K, India</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Duggarswad. All rights reserved. Made with ❤️ for preserving Jammu's culinary heritage.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blog Modal -->
+    <div id="blog-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Admin Access Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <span class="close" onclick="closeAdminModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-password">Admin Password:</label>
+                        <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Access Admin Panel</button>
+                </form>
+                <p class="admin-hint">Hint: The password is "admin123"</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
