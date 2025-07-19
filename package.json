@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "python -m http.server 3000",
     "build": "echo 'no build script'"
   }
 }
