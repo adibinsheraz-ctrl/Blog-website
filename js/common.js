@@ -98,9 +98,10 @@ function closeAdminModal() {
 
 function handleAdminLogin(e) {
   e.preventDefault()
+  const username = document.getElementById("admin-username").value
   const password = document.getElementById("admin-password").value
 
-  if (password === "admin123") {
+  if (username === "Rakesh@11" && password === "Duggarswad@xll") {
     localStorage.setItem("adminLoggedIn", "true")
     isAdminLoggedIn = true
     closeAdminModal()
@@ -117,7 +118,7 @@ function handleAdminLogin(e) {
       window.location.reload()
     }
   } else {
-    showNotification("Invalid password. Please try again.", "error")
+    showNotification("Invalid username or password. Please try again.", "error")
   }
 }
 

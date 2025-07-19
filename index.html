@@ -46,6 +46,11 @@
                 <li class="nav-item">
                     <a href="post-blog.html" class="nav-link">Post Your Blog</a>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showAdminModal()" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-user-shield"></i> Admin Access
+                    </button>
+                </li>
                 <li class="nav-item admin-link" style="display: none;">
                     <a href="admin.html" class="nav-link admin-nav">Admin</a>
                 </li>
@@ -231,12 +236,15 @@
             <div class="modal-body">
                 <form id="admin-login-form">
                     <div class="form-group">
-                        <label for="admin-password">Admin Password:</label>
-                        <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                        <label for="admin-username">Username:</label>
+                        <input type="text" id="admin-username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" placeholder="Enter password" required>
                     </div>
                     <button type="submit" class="submit-btn">Access Admin Panel</button>
                 </form>
-                <p class="admin-hint">Hint: The password is "admin123"</p>
             </div>
         </div>
     </div>
