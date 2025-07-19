@@ -2,79 +2,11 @@
 
 let currentTab = "pending"
 let allPosts = []
-
-// Mock implementations for missing dependencies
-const isAdminLoggedIn = true // Mock admin login status
-const BlogStorage = {
-  getAllPosts: () => [
-    {
-      id: 1,
-      title: "Recipe 1",
-      author: "Author 1",
-      createdAt: "2023-10-01",
-      category: "category-1",
-      status: "pending",
-      instructions: "Step 1\nStep 2",
-      story: "Story 1",
-      images: ["/image1.jpg"],
-    },
-    {
-      id: 2,
-      title: "Recipe 2",
-      author: "Author 2",
-      createdAt: "2023-10-02",
-      category: "category-2",
-      status: "approved",
-      instructions: "Step 1\nStep 2",
-      story: "Story 2",
-      images: ["/image2.jpg"],
-    },
-  ],
-  approvePost: (id) => ({ id, title: "Recipe", status: "approved" }),
-  rejectPost: (id, reason) => ({ id, title: "Recipe", status: "rejected", rejectionReason: reason }),
-}
-
-function generateExcerpt(text, maxLength) {
-  if (text.length <= maxLength) {
-    return text
-  }
-  return text.substring(0, maxLength) + "..."
-}
-
-function formatDate(date) {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(date).toLocaleDateString(undefined, options)
-}
-
-function formatCategory(category) {
-  return category.charAt(0).toUpperCase() + category.slice(1)
-}
-
-function showNotification(message, type, duration = 5000) {
-  const notification = document.createElement("div")
-  notification.className = `notification ${type}`
-  notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    `
-  notification.textContent = message
-
-  document.body.appendChild(notification)
-
-  setTimeout(() => {
-    if (document.body.contains(notification)) {
-      document.body.removeChild(notification)
-    }
-  }, duration)
-}
+let notificationUpdateInterval = null
 
 document.addEventListener("DOMContentLoaded", () => {
   // Check admin authentication
+  const isAdminLoggedIn = localStorage.getItem("adminLoggedIn") === "true"
   if (!isAdminLoggedIn) {
     window.location.href = "index.html"
     return
@@ -83,6 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeAdminPanel()
   loadPosts()
   initializeModals()
+  initializeNotificationCenter()
+  setupRealTimeUpdates()
+  
+  // Check for specific post in URL
+  const urlParams = new URLSearchParams(window.location.search)
+  const postId = urlParams.get('post')
+  if (postId) {
+    setTimeout(() => viewPost(parseInt(postId)), 1000)
+  }
 })
 
 // Initialize admin panel
@@ -140,7 +81,12 @@ function showTab(tab) {
 
 // Load and display posts
 function loadPosts() {
-  allPosts = BlogStorage.getAllPosts()
+  if (!window.dataManager) {
+    console.error('Data manager not available')
+    return
+  }
+  
+  allPosts = window.dataManager.getPosts()
   displayPosts()
   updateStats()
   updateTabCounts()
@@ -432,9 +378,13 @@ function generatePostDetailHTML(post) {
 }
 
 function approvePost(postId) {
-  const post = BlogStorage.approvePost(postId)
+  if (!window.dataManager) return
+  
+  const post = window.dataManager.approvePost(postId)
   if (post) {
-    showNotification(`"${post.title}" has been approved and published!`, "success")
+    if (window.notificationSystem) {
+      window.notificationSystem.success(`"${post.title}" has been approved and published!`)
+    }
     loadPosts()
   }
 }
@@ -461,9 +411,13 @@ function showRejectModal(postId) {
 }
 
 function rejectPost(postId, reason) {
-  const post = BlogStorage.rejectPost(postId, reason)
+  if (!window.dataManager) return
+  
+  const post = window.dataManager.rejectPost(postId, reason)
   if (post) {
-    showNotification(`"${post.title}" has been rejected.`, "warning")
+    if (window.notificationSystem) {
+      window.notificationSystem.warning(`"${post.title}" has been rejected.`)
+    }
     loadPosts()
   }
 }
@@ -477,23 +431,115 @@ function approveAll() {
   const pendingPosts = allPosts.filter((post) => post.status === "pending")
 
   if (pendingPosts.length === 0) {
-    showNotification("No pending posts to approve", "info")
+    if (window.notificationSystem) {
+      window.notificationSystem.info("No pending posts to approve")
+    }
     return
   }
 
   if (confirm(`Are you sure you want to approve all ${pendingPosts.length} pending posts?`)) {
     pendingPosts.forEach((post) => {
-      BlogStorage.approvePost(post.id)
+      window.dataManager.approvePost(post.id)
     })
 
-    showNotification(`${pendingPosts.length} posts have been approved!`, "success")
+    if (window.notificationSystem) {
+      window.notificationSystem.success(`${pendingPosts.length} posts have been approved!`)
+    }
     loadPosts()
   }
 }
 
 function refreshPosts() {
   loadPosts()
-  showNotification("Posts refreshed", "success", 2000)
+  if (window.notificationSystem) {
+    window.notificationSystem.success("Posts refreshed", { duration: 2000 })
+  }
+}
+
+// Notification Center
+function initializeNotificationCenter() {
+  createNotificationBadge()
+  loadNotifications()
+}
+
+function createNotificationBadge() {
+  const adminNav = document.querySelector('.admin-nav')
+  if (adminNav && !document.querySelector('.admin-notification-badge')) {
+    const badge = document.createElement('span')
+    badge.className = 'admin-notification-badge'
+    badge.style.cssText = `
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--danger-color);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    `
+    adminNav.style.position = 'relative'
+    adminNav.appendChild(badge)
+  }
+}
+
+function loadNotifications() {
+  if (!window.dataManager) return
+  
+  const unreadNotifications = window.dataManager.getNotifications(true)
+  updateNotificationBadge(unreadNotifications.length)
+}
+
+function updateNotificationBadge(count) {
+  const badge = document.querySelector('.admin-notification-badge')
+  if (badge) {
+    if (count > 0) {
+      badge.textContent = count > 99 ? '99+' : count
+      badge.style.display = 'flex'
+    } else {
+      badge.style.display = 'none'
+    }
+  }
+}
+
+// Real-time updates
+function setupRealTimeUpdates() {
+  if (window.dataManager) {
+    window.dataManager.addEventListener('dataChanged', () => {
+      loadPosts()
+      loadNotifications()
+    })
+    
+    window.dataManager.addEventListener('newNotification', (notification) => {
+      loadNotifications()
+      
+      // Show toast notification for new recipes
+      if (notification.type === 'new_recipe' && window.notificationSystem) {
+        window.notificationSystem.info(notification.message, {
+          title: notification.title,
+          action: () => viewPost(notification.postId),
+          actionText: 'Review',
+          persistent: true
+        })
+      }
+    })
+  }
+  
+  // Auto-refresh every 30 seconds
+  notificationUpdateInterval = setInterval(() => {
+    loadNotifications()
+  }, 30000)
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  if (notificationUpdateInterval) {
+    clearInterval(notificationUpdateInterval)
+  }
 }
 
 // Modal functions
@@ -590,7 +636,7 @@ function updateTabCounts() {
 
 function animateCounter(element, target) {
   let current = 0
-  const increment = Math.max(1, Math.ceil(target / 30))
+  const increment = Math.max(1, Math.ceil(target / 20))
   const timer = setInterval(() => {
     current += increment
     if (current >= target) {
@@ -598,7 +644,28 @@ function animateCounter(element, target) {
       clearInterval(timer)
     }
     element.textContent = current
-  }, 50)
+  }, 30)
+}
+
+// Utility functions
+function generateExcerpt(text, maxLength) {
+  if (!text) return 'No content available'
+  if (text.length <= maxLength) {
+    return text
+  }
+  return text.substring(0, maxLength) + "..."
+}
+
+function formatDate(date) {
+  const options = { year: "numeric", month: "long", day: "numeric" }
+  return new Date(date).toLocaleDateString(undefined, options)
+}
+
+function formatCategory(category) {
+  if (!category) return 'General'
+  return category.split('-').map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ')
 }
 
 // Make functions globally available

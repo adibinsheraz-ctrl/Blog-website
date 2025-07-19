@@ -53,73 +53,55 @@ function handleBlogSubmit(e) {
     phone: formData.get("phone"),
     newsletter: formData.get("newsletter") === "on",
     images: selectedImages.map((img) => img.url),
-    status: "pending",
   }
 
   // Simulate form submission
   setTimeout(() => {
     // Save blog post
-    const savedPost = saveBlogPost(blogPost)
+    const savedPost = window.dataManager ? window.dataManager.addPost(blogPost) : null
 
-    // Reset form
-    e.target.reset()
-    selectedImages = []
-    updateImagePreview()
+    if (savedPost) {
+      // Reset form
+      e.target.reset()
+      selectedImages = []
+      updateImagePreview()
 
-    // Show success message
-    showNotification(
-      "Your recipe has been submitted successfully! It will be reviewed and published within 2-3 business days.",
-      "success",
-      7000,
-    )
+      // Show success message
+      if (window.notificationSystem) {
+        window.notificationSystem.success(
+          "Your recipe has been submitted successfully! It will be reviewed and published within 2-3 business days.",
+          { duration: 7000 }
+        )
+      }
 
+      // Clear auto-save data
+      localStorage.removeItem('blog-form-autosave')
+
+      // Scroll to top
+      scrollToTop()
+
+      // Optional: redirect to home page after a delay
+      setTimeout(() => {
+        if (confirm("Would you like to view all recipes now?")) {
+          window.location.href = "index.html"
+        }
+      }, 3000)
+    } else {
+      if (window.notificationSystem) {
+        window.notificationSystem.error("Failed to submit recipe. Please try again.")
+      }
+    }
+    
     // Reset button state
     submitBtn.classList.remove("loading")
     submitBtn.disabled = false
     btnText.style.display = "inline"
     btnLoading.style.display = "none"
-
-    // Scroll to top
-    scrollToTop()
-
-    // Optional: redirect to home page after a delay
-    setTimeout(() => {
-      if (confirm("Would you like to view all recipes now?")) {
-        window.location.href = "index.html"
-      }
-    }, 3000)
   }, 2000)
-}
-
-function saveBlogPost(post) {
-  // Placeholder for saving the blog post
-  console.log("Blog post saved:", post)
-  return post
 }
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" })
-}
-
-function showNotification(message, type, duration) {
-  const notification = document.createElement("div")
-  notification.className = `notification ${type}`
-  notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    `
-  notification.textContent = message
-
-  document.body.appendChild(notification)
-
-  setTimeout(() => {
-    document.body.removeChild(notification)
-  }, duration)
 }
 
 function formatCategory(category) {
@@ -402,7 +384,9 @@ function validateForm(form) {
   }
 
   if (!isValid) {
-    showNotification("Please fix the errors in the form before submitting", "error")
+    if (window.notificationSystem) {
+      window.notificationSystem.error("Please fix the errors in the form before submitting")
+    }
     // Scroll to first error
     const firstError = form.querySelector(".field-error")
     if (firstError) {

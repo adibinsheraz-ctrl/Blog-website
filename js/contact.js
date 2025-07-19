@@ -48,9 +48,13 @@ function handleContactSubmit(e) {
 
     // Reset form and show success message
     e.target.reset()
-    window.alert(
-      `Thank you ${contactData.firstName}! Your message has been sent. We'll get back to you within 24 hours.`,
-    )
+    
+    if (window.notificationSystem) {
+      window.notificationSystem.success(
+        `Thank you ${contactData.firstName}! Your message has been sent. We'll get back to you within 24 hours.`,
+        { duration: 6000 }
+      )
+    }
 
     // Reset button state
     submitBtn.classList.remove("loading")
@@ -61,7 +65,9 @@ function handleContactSubmit(e) {
     // Subscribe to newsletter if requested
     if (contactData.newsletter) {
       setTimeout(() => {
-        window.alert("You have been subscribed to our newsletter!")
+        if (window.notificationSystem) {
+          window.notificationSystem.info("You have been subscribed to our newsletter!")
+        }
       }, 1000)
     }
   }, 2000) // Simulate network delay

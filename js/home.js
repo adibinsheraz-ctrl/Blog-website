@@ -7,90 +7,6 @@ let filteredPosts = []
 let currentFilter = ""
 let currentSearch = ""
 
-// Declare necessary variables
-const BlogStorage = {
-  getPostsByStatus: (status) => {
-    // Mock implementation
-    return [
-      {
-        id: 1,
-        title: "Recipe 1",
-        author: "Author 1",
-        createdAt: "2023-10-01",
-        category: "category-1",
-        instructions: "Step 1\nStep 2",
-        story: "Story 1",
-        images: ["/image1.jpg"],
-      },
-      {
-        id: 2,
-        title: "Recipe 2",
-        author: "Author 2",
-        createdAt: "2023-10-02",
-        category: "category-2",
-        instructions: "Step 1\nStep 2",
-        story: "Story 2",
-        images: ["/image2.jpg"],
-      },
-    ].filter((post) => post.status === status)
-  },
-  getAllPosts: () => {
-    // Mock implementation
-    return [
-      {
-        id: 1,
-        title: "Recipe 1",
-        author: "Author 1",
-        createdAt: "2023-10-01",
-        category: "category-1",
-        instructions: "Step 1\nStep 2",
-        story: "Story 1",
-        images: ["/image1.jpg"],
-        status: "approved",
-      },
-      {
-        id: 2,
-        title: "Recipe 2",
-        author: "Author 2",
-        createdAt: "2023-10-02",
-        category: "category-2",
-        instructions: "Step 1\nStep 2",
-        story: "Story 2",
-        images: ["/image2.jpg"],
-        status: "pending",
-      },
-    ]
-  },
-}
-
-function generateExcerpt(text, maxLength) {
-  if (text.length <= maxLength) {
-    return text
-  }
-  return text.substring(0, maxLength) + "..."
-}
-
-function formatDateShort(date) {
-  const options = { year: "numeric", month: "short", day: "numeric" }
-  return new Date(date).toLocaleDateString(undefined, options)
-}
-
-function formatDate(date) {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(date).toLocaleDateString(undefined, options)
-}
-
-function showNotification(message, type) {
-  console.log(`Notification (${type}): ${message}`)
-}
-
-function scrollToSection(sectionId) {
-  const section = document.getElementById(sectionId)
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" })
-  }
-}
-
 // Initialize home page
 document.addEventListener("DOMContentLoaded", () => {
   loadBlogPosts()
@@ -100,11 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeStats()
   initializeNewsletterForm()
   initializeScrollAnimations()
+  setupRealTimeUpdates()
 })
 
 // Load and display blog posts
 function loadBlogPosts() {
-  allPosts = BlogStorage.getPostsByStatus("approved")
+  if (!window.dataManager) {
+    console.error('Data manager not available')
+    return
+  }
+  
+  allPosts = window.dataManager.getPosts("approved")
   filteredPosts = [...allPosts]
   displayPosts()
   updateStats()
@@ -418,15 +340,22 @@ function updateStats() {
   const totalContributors = document.getElementById("total-contributors")
   const pendingApproval = document.getElementById("pending-approval")
 
-  const allStoredPosts = BlogStorage.getAllPosts()
+  if (!window.dataManager) return
+  
+  const stats = window.dataManager.getStats()
+  const allStoredPosts = window.dataManager.getPosts()
   const approvedPosts = allStoredPosts.filter((post) => post.status === "approved")
-  const pendingPosts = allStoredPosts.filter((post) => post.status === "pending")
-  const uniqueContributors = new Set(allStoredPosts.map((post) => post.author || "Anonymous")).size
+  
+  // Get today's submissions
+  const today = new Date().toISOString().split('T')[0]
+  const todaySubmissions = allStoredPosts.filter(post => 
+    post.createdAt && post.createdAt.startsWith(today)
+  ).length
 
   // Animate counters
-  if (totalRecipes) animateCounter(totalRecipes, approvedPosts.length)
-  if (totalContributors) animateCounter(totalContributors, uniqueContributors)
-  if (pendingApproval) animateCounter(pendingApproval, pendingPosts.length)
+  if (totalRecipes) animateCounter(totalRecipes, stats.approved)
+  if (totalContributors) animateCounter(totalContributors, stats.contributors)
+  if (pendingApproval) animateCounter(pendingApproval, todaySubmissions)
 }
 
 function animateCounter(element, target) {
@@ -455,7 +384,9 @@ function handleNewsletterSubmit(e) {
   const email = e.target.querySelector('input[type="email"]').value
 
   // Simulate newsletter subscription
-  showNotification(`Thank you for subscribing with ${email}! You'll receive our latest recipes.`, "success")
+  if (window.notificationSystem) {
+    window.notificationSystem.success(`Thank you for subscribing with ${email}! You'll receive our latest recipes.`)
+  }
   e.target.reset()
 }
 
@@ -496,7 +427,9 @@ function shareRecipe(title) {
     // Fallback: copy to clipboard
     const url = window.location.href
     navigator.clipboard.writeText(url).then(() => {
-      showNotification("Recipe link copied to clipboard!", "success")
+      if (window.notificationSystem) {
+        window.notificationSystem.success("Recipe link copied to clipboard!")
+      }
     })
   }
 }
@@ -507,6 +440,41 @@ function printRecipe() {
 
 function scrollToBlogs() {
   scrollToSection("blog-section")
+}
+
+// Real-time updates
+function setupRealTimeUpdates() {
+  if (window.dataManager) {
+    window.dataManager.addEventListener('dataChanged', () => {
+      loadBlogPosts()
+    })
+  }
+}
+
+// Utility functions
+function generateExcerpt(text, maxLength) {
+  if (!text) return 'No content available'
+  if (text.length <= maxLength) {
+    return text
+  }
+  return text.substring(0, maxLength) + "..."
+}
+
+function formatDateShort(date) {
+  const options = { year: "numeric", month: "short", day: "numeric" }
+  return new Date(date).toLocaleDateString(undefined, options)
+}
+
+function formatDate(date) {
+  const options = { year: "numeric", month: "long", day: "numeric" }
+  return new Date(date).toLocaleDateString(undefined, options)
+}
+
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId)
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" })
+  }
 }
 
 // Debounce utility
