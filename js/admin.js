@@ -541,6 +541,7 @@ window.addEventListener('beforeunload', () => {
     clearInterval(notificationUpdateInterval)
   }
 }
+)
 
 // Modal functions
 function initializeModals() {
