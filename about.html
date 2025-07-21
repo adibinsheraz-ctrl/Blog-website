@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Duggarswad | Preserving Traditional Jammu Cuisine</title>
+    <meta name="description" content="Learn about Duggarswad's mission to preserve and share traditional Jammu cuisine. Discover our story and commitment to Dogra culinary heritage.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <div class="nav-logo">
+                    <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="logo-img">
+                    <span class="logo-text">Duggarswad</span>
+                </div>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link active">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="post-recipe.html" class="nav-link">Post Your Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showAdminModal()" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-user-shield"></i> Admin Access
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>About Duggarswad</h1>
+            <p>Preserving the culinary heritage of Jammu & Kashmir</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>
+                        Duggarswad was born from a deep love for the traditional cuisine of Jammu and Kashmir. 
+                        As we watched our grandmothers' recipes slowly fade from memory and our traditional 
+                        cooking methods give way to modern convenience, we realized the urgent need to preserve 
+                        these culinary treasures.
+                    </p>
+                    <p>
+                        The name "Duggarswad" combines "Duggar" (referring to the Dogra people and region) 
+                        with "swad" (meaning taste or flavor in Hindi). It represents our mission to capture 
+                        and share the authentic taste of our homeland.
+                    </p>
+                    <p>
+                        Every recipe shared here carries with it the warmth of family kitchens, the joy of 
+                        festival preparations, and the love that goes into feeding our families. We believe 
+                        that food is not just sustenance – it's culture, memory, and identity.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="assets/traditional-drink.jpeg" alt="Traditional Jammu Cuisine" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-grid">
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Preserve Heritage</h3>
+                    <p>Document and preserve traditional recipes that are at risk of being forgotten, ensuring they pass to future generations.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Build Community</h3>
+                    <p>Create a platform where people can share their family recipes and connect over their love for traditional cuisine.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Share Knowledge</h3>
+                    <p>Make traditional cooking techniques and recipes accessible to everyone, regardless of their location or background.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="values-content">
+                <h2>What We Stand For</h2>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <h3>Authenticity</h3>
+                        <p>We prioritize genuine, traditional recipes over modern adaptations, ensuring the true essence of Dogra cuisine is preserved.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Community</h3>
+                        <p>Every recipe comes with a story, connecting us to the people and traditions that make our cuisine special.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Accessibility</h3>
+                        <p>We make it easy for anyone to contribute and learn, breaking down barriers to sharing culinary knowledge.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Quality</h3>
+                        <p>Each recipe is carefully reviewed to ensure accuracy and authenticity before being shared with our community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Mission</h2>
+                <p>Help us preserve the rich culinary heritage of Jammu & Kashmir by sharing your family recipes</p>
+                <div class="cta-buttons">
+                    <a href="post-recipe.html" class="cta-button primary">Share Your Recipe</a>
+                    <a href="contact.html" class="cta-button secondary">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Duggarswad</span>
+                    </div>
+                    <p>Preserving the traditional flavours of Jammu, one recipe at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="post-recipe.html">Post Recipe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('main-course')">Main Course</a></li>
+                        <li><a href="#" onclick="filterByCategory('appetizers')">Appetizers</a></li>
+                        <li><a href="#" onclick="filterByCategory('desserts')">Desserts</a></li>
+                        <li><a href="#" onclick="filterByCategory('beverages')">Beverages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@duggarswad.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Jammu, J&K, India</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> Duggarswad. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="admin-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <span class="close" onclick="closeAdminModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-username">Username:</label>
+                        <input type="text" id="admin-username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Access Admin Panel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data-manager.js"></script>
+    <script src="js/notification-system.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

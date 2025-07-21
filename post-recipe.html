@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Recipe - Duggarswad | Post Traditional Recipe</title>
+    <meta name="description" content="Share your traditional Jammu recipe with the world. Help preserve culinary heritage by contributing your family's authentic recipes to Duggarswad.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <div class="nav-logo">
+                    <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="logo-img">
+                    <span class="logo-text">Duggarswad</span>
+                </div>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="post-recipe.html" class="nav-link active">Post Your Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showAdminModal()" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-user-shield"></i> Admin Access
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Share Your Traditional Recipe</h1>
+            <p>Help preserve our culinary heritage by sharing your family's authentic recipes</p>
+        </div>
+    </section>
+
+    <!-- Guidelines Section -->
+    <section class="guidelines-section">
+        <div class="container">
+            <div class="guidelines-content">
+                <h2>Recipe Submission Guidelines</h2>
+                <div class="guidelines-grid">
+                    <div class="guideline-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h3>Authentic Recipes</h3>
+                            <p>Share traditional recipes that have been passed down through generations</p>
+                        </div>
+                    </div>
+                    <div class="guideline-item">
+                        <i class="fas fa-camera"></i>
+                        <div>
+                            <h3>Include Photos</h3>
+                            <p>Add high-quality images of your dish to make it more appealing</p>
+                        </div>
+                    </div>
+                    <div class="guideline-item">
+                        <i class="fas fa-list"></i>
+                        <div>
+                            <h3>Detailed Instructions</h3>
+                            <p>Provide clear, step-by-step cooking instructions</p>
+                        </div>
+                    </div>
+                    <div class="guideline-item">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h3>Share the Story</h3>
+                            <p>Include the cultural significance or family story behind the recipe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- recipe Form Section -->
+    <section class="recipe-form-section">
+        <div class="container">
+            <form class="recipe-form" id="recipe-form">
+                <div class="form-header">
+                    <h2>Recipe Details</h2>
+                    <p>All fields marked with * are required</p>
+                </div>
+
+                <div class="form-section">
+                    <h3>Basic Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="recipe-title">Recipe Title *</label>
+                            <input type="text" id="recipe-title" name="title" placeholder="e.g., Traditional Rajma of Bhaderwah" required>
+                            <small>Choose a descriptive title that reflects the dish's origin</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-category">Category *</label>
+                            <select id="recipe-category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="main-course">Main Course</option>
+                                <option value="appetizers">Appetizers</option>
+                                <option value="desserts">Desserts</option>
+                                <option value="beverages">Beverages</option>
+                                <option value="snacks">Snacks</option>
+                                <option value="bread">Bread & Rice</option>
+                                <option value="pickles">Pickles & Preserves</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="author-name">Your Name</label>
+                            <input type="text" id="author-name" name="author" placeholder="Your name (optional)">
+                            <small>This will be displayed as the recipe contributor</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="prep-time">Preparation Time</label>
+                            <input type="text" id="prep-time" name="prepTime" placeholder="e.g., 30 minutes">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cook-time">Cooking Time</label>
+                            <input type="text" id="cook-time" name="cookTime" placeholder="e.g., 45 minutes">
+                        </div>
+                        <div class="form-group">
+                            <label for="servings">Servings</label>
+                            <input type="text" id="servings" name="servings" placeholder="e.g., 4-6 people">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Recipe Images</h3>
+                    <div class="form-group">
+                        <label for="recipe-images">Upload Images</label>
+                        <div class="file-upload-area" id="file-upload-area">
+                            <input type="file" id="recipe-images" name="images" multiple accept="image/*">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag and drop images here or click to browse</p>
+                                <small>You can upload multiple images (JPG, PNG, max 5MB each)</small>
+                            </div>
+                        </div>
+                        <div class="image-preview" id="image-preview"></div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Ingredients</h3>
+                    <div class="form-group">
+                        <label for="ingredients">Ingredients List *</label>
+                        <textarea id="ingredients" name="ingredients" rows="8" placeholder="List all ingredients with quantities, one per line:
+• 2 cups Basmati rice
+• 1 kg mutton, cut into pieces
+• 2 large onions, sliced
+• 1 tbsp ginger-garlic paste
+• ..." required></textarea>
+                        <small>List each ingredient on a new line with quantities</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Cooking Instructions</h3>
+                    <div class="form-group">
+                        <label for="instructions">Step-by-step Instructions *</label>
+                        <textarea id="instructions" name="instructions" rows="12" placeholder="Provide detailed cooking instructions:
+
+1. Wash and soak the rice for 30 minutes
+2. Heat oil in a heavy-bottomed pot
+3. Add whole spices and let them splutter
+4. Add sliced onions and cook until golden brown
+5. ..." required></textarea>
+                        <small>Number each step clearly for easy following</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Additional Information</h3>
+                    <div class="form-group">
+                        <label for="recipe-story">Recipe Story & Cultural Significance</label>
+                        <textarea id="recipe-story" name="story" rows="6" placeholder="Share the story behind this recipe:
+- Where did you learn it?
+- What makes it special?
+- When is it traditionally prepared?
+- Any family memories associated with it?"></textarea>
+                        <small>This helps preserve the cultural context of the recipe</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tips">Chef's Tips & Variations</label>
+                        <textarea id="tips" name="tips" rows="4" placeholder="Share any special tips, tricks, or variations:
+- Secret ingredients that make it special
+- Common mistakes to avoid
+- Regional variations
+- Storage instructions"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Contact Information (Optional)</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" name="email" placeholder="your.email@example.com">
+                            <small>We'll use this to contact you about your recipe</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">Phone Number</label>
+                            <input type="tel" id="contact-phone" name="phone" placeholder="+91 9876543210">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms-agreement" name="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the terms and conditions and confirm that this recipe is authentic and I have the right to share it.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="preview-btn" id="preview-btn">
+                        <i class="fas fa-eye"></i> Preview Recipe
+                    </button>
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">
+                            <i class="fas fa-paper-plane"></i> Submit for Review
+                        </span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Submitting...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Recipe Preview</h3>
+                <span class="close" onclick="closePreviewModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="preview-content">
+                <!-- Preview content will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Duggarswad</span>
+                    </div>
+                    <p>Preserving the traditional flavours of Jammu, one recipe at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="post-recipe.html">Post Recipe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> Duggarswad. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Access Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <span class="close" onclick="closeAdminModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-username">Username:</label>
+                        <input type="text" id="admin-username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Access Admin Panel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data-manager.js"></script>
+    <script src="js/notification-system.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/post-recipe.js"></script>
+</body>
+</html>

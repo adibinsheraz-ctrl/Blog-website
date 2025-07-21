@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duggarswad - Traditional Jammu Food recipe | Authentic Dogra Recipes</title>
+    <meta name="description" content="Discover authentic traditional recipes from Jammu and Kashmir. Share and explore Dogra cuisine, from Rajma to Kalaadi. Preserve culinary heritage with us.">
+    <meta name="keywords" content="Jammu food, Dogra cuisine, traditional recipes, Rajma, Kalaadi, Madhra, Jammu recipe">
+    <meta name="author" content="Duggarswad">
+    <meta property="og:title" content="Duggarswad - Traditional Jammu Food recipe">
+    <meta property="og:description" content="Discover authentic traditional recipes from Jammu and Kashmir">
+    <meta property="og:image" content="assets/logo.jpeg">
+    <meta property="og:url" content="https://duggarswad.com">
+    <link rel="canonical" href="https://duggarswad.com">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .carousel-progress {
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 8px;
+            position: relative;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 4px;
+            background: #fff;
+            border-radius: 2px;
+            transition: width 0.2s linear;
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .progress-bar .flow {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(249,168,37,0.7) 50%, rgba(255,255,255,0) 100%);
+            animation: flow 1.2s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes flow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="loading-logo">
+            <div class="loading-spinner"></div>
+            <p>Loading Traditional Flavours...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <div class="nav-logo">
+                    <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="logo-img">
+                    <span class="logo-text">Duggarswad</span>
+                </div>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="post-recipe.html" class="nav-link">Post Your Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showAdminModal()" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-user-shield"></i> Admin Access
+                    </button>
+                </li>
+                <li class="nav-item admin-link" style="display: none;">
+                    <a href="admin.html" class="nav-link admin-nav">Admin</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Taste the Tradition</span>
+                    <span class="title-line">of Duggar</span>
+                </h1>
+                <p class="hero-description">
+                    Welcome to Flavours of Jammu, where we bring back the lost and traditional foods of the Duggar land. 
+                    Share your family recipes and discover authentic Dogra cuisine.
+                </p>
+                <div class="hero-buttons">
+                    <a href="post-recipe.html" class="cta-button primary">
+                        Share Your Recipe <i class="fas fa-plus"></i>
+                    </a>
+                    <button class="cta-button secondary" onclick="scrollTorecipes()">
+                        Explore Recipes <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image-carousel">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Delicious Food 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1980&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Delicious Food 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Delicious Food 3">
+                </div>
+                <div class="carousel-progress">
+                    <div class="progress-bar" id="carousel-progress">
+                        <div class="flow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-recipes">0</div>
+                    <div class="stat-label">Traditional Recipes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="total-contributors">0</div>
+                    <div class="stat-label">Contributors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="pending-approval">0</div>
+                    <div class="stat-label">Recipes Shared Today</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- recipe Section -->
+    <section id="recipe-section" class="recipe-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Traditional Recipes & Stories</h2>
+                <p class="section-subtitle">Discover authentic flavours passed down through generations</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="recipe-controls">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search recipes...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-dropdown">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="main-course">Main Course</option>
+                        <option value="appetizers">Appetizers</option>
+                        <option value="desserts">Desserts</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="snacks">Snacks</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="recipe-grid" id="recipe-grid">
+                <!-- recipe posts will be dynamically loaded here -->
+            </div>
+            
+            <div class="no-results" id="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No recipes found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+
+            <div class="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">Load More Recipes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated with Traditional Recipes</h2>
+                <p>Get the latest traditional recipes and stories delivered to your inbox</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Duggarswad</span>
+                    </div>
+                    <p>Preserving the traditional flavours of Jammu, one recipe at a time.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="post-recipe.html">Post Recipe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('main-course')">Main Course</a></li>
+                        <li><a href="#" onclick="filterByCategory('appetizers')">Appetizers</a></li>
+                        <li><a href="#" onclick="filterByCategory('desserts')">Desserts</a></li>
+                        <li><a href="#" onclick="filterByCategory('beverages')">Beverages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@duggarswad.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Jammu, J&K, India</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> Duggarswad. All rights reserved. Made with ❤️ for preserving Jammu's culinary heritage.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Admin Access Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <span class="close" onclick="closeAdminModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-username">Username:</label>
+                        <input type="text" id="admin-username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password:</label>
+                        <input type="password" id="admin-password" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Access Admin Panel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data-manager.js"></script>
+    <script src="js/notification-system.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/home.js"></script>
+    <script>
+        // Progress bar animation for hero-image-carousel
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const progressBar = document.getElementById('carousel-progress');
+            let currentSlide = 0;
+            const slideInterval = 4000; // ms
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.style.display = i === index ? 'block' : 'none';
+                });
+            }
+
+            function animateProgressBar() {
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                    progressBar.style.transition = `width ${slideInterval}ms linear`;
+                    progressBar.style.width = '60%';
+                }, 50);
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+                animateProgressBar();
+            }
+
+            // Initial setup
+            showSlide(currentSlide);
+            animateProgressBar();
+            setInterval(nextSlide, slideInterval);
+        });
+    </script>
+</body>
+</html>
+        });
+    </script>
+</body>
+</html>

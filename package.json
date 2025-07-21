@@ -1,0 +1,9 @@
+{
+  "name": "duggarswad-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "http-server . -p 3000 -o",
+    "build": "echo 'no build script'"
+  }
+}

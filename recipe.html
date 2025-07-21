@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe - Duggarswad</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo-link">
+                <div class="nav-logo">
+                    <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="logo-img">
+                    <span class="logo-text">Duggarswad</span>
+                </div>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="post-recipe.html" class="nav-link">Post Your Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showAdminModal()" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-user-shield"></i> Admin Access
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Recipe Content -->
+    <section class="recipe-page-section">
+        <div class="container" id="recipe-content">
+            <!-- Recipe content will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.jpeg" alt="Duggarswad Logo" class="footer-logo-img">
+                        <span class="footer-logo-text">Duggarswad</span>
+                    </div>
+                    <p>Preserving the traditional flavours of Jammu, one recipe at a time.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="post-recipe.html">Post Recipe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('main-course')">Main Course</a></li>
+                        <li><a href="#" onclick="filterByCategory('appetizers')">Appetizers</a></li>
+                        <li><a href="#" onclick="filterByCategory('desserts')">Desserts</a></li>
+                        <li><a href="#" onclick="filterByCategory('beverages')">Beverages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@duggarswad.com</p>
+                        <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Jammu, J&K, India</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> Duggarswad. All rights reserved. Made with ❤️ for preserving Jammu's culinary heritage.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data-manager.js"></script>
+    <script src="js/notification-system.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/recipe.js"></script>
+</body>
+</html>
